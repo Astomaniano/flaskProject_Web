@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Вход</h1>
+        <form action="{{ url_for('login') }}" method="post" class="needs-validation" novalidate>
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                <label for="username" class="form-label">{{ form.username.label }}</label>
+                {{ form.username(class="form-control", id="username", placeholder="Введите имя пользователя") }}
+                <div class="invalid-feedback">
+                    Пожалуйста, введите ваше имя пользователя.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">{{ form.password.label }}</label>
+                {{ form.password(class="form-control", id="password", placeholder="Введите пароль") }}
+                <div class="invalid-feedback">
+                    Пожалуйста, введите ваш пароль.
+                </div>
+            </div>
+            <div>
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript для включения валидации Bootstrap
+        (function () {
+            'use strict'
+
+            // Получаем все формы, которым требуется валидация
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Перебираем их и предотвращаем отправку
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+{% endblock %}
